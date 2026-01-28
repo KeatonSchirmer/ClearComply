@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Requirements - ClearComply</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('compliance.compliance') }}">Requirements</a>
+        <a href="{{ url_for('billing.billing') }}">Billing</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+
+    <h1>Compliance Requirements</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="action-buttons">
+        <a href="{{ url_for('compliance.add_requirement') }}">
+            <button class="btn-primary">➕ Add Requirement</button>
+        </a>
+        
+        {% if requirements %}
+        <a href="{{ url_for('compliance.export_all_pdf') }}">
+            <button class="btn-secondary">📄 Export PDF</button>
+        </a>
+        <a href="{{ url_for('compliance.export_all_csv') }}">
+            <button class="btn-secondary">📊 Export CSV</button>
+        </a>
+        {% endif %}
+    </div>
+
+    {% if requirements %}
+    <table class="requirements-table">
+        <thead>
+            <tr>
+                <th>Requirement Name</th>
+                <th>Status</th>
+                <th>Expiration Date</th>
+                <th>Last Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requirements %}
+            <tr>
+                <td>{{ req.name }}</td>
+                <td>
+                    {% if req.status == 'compliant' %}
+                        🟢 Compliant
+                    {% elif req.status == 'expiring_soon' %}
+                        🟡 Expiring Soon
+                    {% elif req.status == 'expired' %}
+                        🔴 Expired
+                    {% else %}
+                        ⚪ Missing
+                    {% endif %}
+                </td>
+                <td>{{ req.expiration_date.strftime('%m/%d/%Y') }}</td>
+                <td>
+                    {% if req.documents %}
+                        {{ req.documents[-1].uploaded_at.strftime('%m/%d/%Y') }}
+                    {% else %}
+                        Never
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('compliance.view_requirement', requirement_id=req.id) }}">View</a> |
+                    <a href="{{ url_for('compliance.edit_requirement', requirement_id=req.id) }}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No requirements yet. Add your first compliance requirement to get started!</p>
+    {% endif %}
+</body>
+</html>

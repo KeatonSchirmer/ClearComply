@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Add Requirement - ClearComply</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('compliance.compliance') }}">Requirements</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+
+    <h1>Add Compliance Requirement</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <label for="name">Requirement Name *</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+
+        <label for="renewal_frequency">Renewal Frequency</label>
+        <select id="renewal_frequency" name="renewal_frequency">
+            <option value="">Select frequency</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
+            <option value="biennial">Every 2 Years</option>
+        </select>
+
+        <label for="expiration_date">Expiration Date *</label>
+        <input type="date" id="expiration_date" name="expiration_date" required>
+
+        <div>
+            <button type="submit" class="btn-primary">Save</button>
+            <a href="{{ url_for('compliance.compliance') }}">
+                <button type="button" class="btn-secondary">Cancel</button>
+            </a>
+        </div>
+    </form>
+</body>
+</html>

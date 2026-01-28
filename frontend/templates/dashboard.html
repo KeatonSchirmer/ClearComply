@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Dashboard - ClearComply</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('compliance.compliance') }}">Requirements</a>
+        <a href="{{ url_for('billing.billing') }}">Billing</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+
+    <h1>Welcome Back, {{ organization_name }}</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="dashboard-summary">
+        <h2>Compliance Status</h2>
+        
+        <div class="status-cards">
+            <div class="card compliant">
+                <h3>{{ compliance_percentage }}%</h3>
+                <p>Compliant</p>
+                <small>{{ compliant_count }} of {{ total_requirements }}</small>
+            </div>
+            
+            <div class="card expiring">
+                <h3>{{ expiring_soon_count }}</h3>
+                <p>Expiring Soon</p>
+                {% if expiring_soon %}
+                <ul>
+                    {% for req in expiring_soon[:3] %}
+                    <li>{{ req.name }} - {{ req.expiration_date.strftime('%m/%d/%Y') }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="card missing">
+                <h3>{{ missing_count }}</h3>
+                <p>Missing / Expired</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="{{ url_for('compliance.add_requirement') }}">
+            <button class="btn-primary">Add Compliance Requirement</button>
+        </a>
+        <a href="{{ url_for('compliance.compliance') }}">
+            <button class="btn-secondary">View All Requirements</button>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Billing - ClearComply</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('compliance.compliance') }}">Requirements</a>
+        <a href="{{ url_for('billing.billing') }}">Billing</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+
+    <h1>Billing & Subscription</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="billing-info">
+        <h2>Plan Status</h2>
+        
+        {% if subscription.status == 'trial' %}
+        <div class="trial-notice">
+            <h3>🎉 Free Trial Active</h3>
+            <p><strong>Status:</strong> Trial Period</p>
+            <p><strong>Trial Days Remaining:</strong> {{ trial_days }} days</p>
+            {% if trial_days <= 7 %}
+            <p class="warning">Your trial is ending soon! Subscribe to continue using ClearComply.</p>
+            {% else %}
+            <p>Enjoying ClearComply? Subscribe anytime to continue after your trial ends.</p>
+            {% endif %}
+            <p style="margin-top: 1rem;"><strong>After Trial:</strong> $15/month</p>
+            
+            <button id="subscribe-btn" class="btn-primary">Subscribe Now - $15/month</button>
+        </div>
+        
+        {% elif subscription.status == 'active' %}
+        <div class="active-subscription">
+            <h3>✓ Subscription Active</h3>
+            <p><strong>Status:</strong> Active & Paid</p>
+            <p><strong>Monthly Cost:</strong> $15</p>
+            <p><strong>Current Period Ends:</strong> {{ subscription.current_period_end.strftime('%B %d, %Y') }}</p>
+            
+            {% if subscription.cancel_at_period_end %}
+            <p class="warning">Your subscription will cancel at the end of the current period.</p>
+            {% endif %}
+            
+            <form method="POST" action="{{ url_for('billing.create_portal') }}">
+                <button type="submit" class="btn-secondary">Manage Subscription</button>
+            </form>
+        </div>
+        
+        {% elif subscription.status == 'past_due' %}
+        <div class="past-due-notice">
+            <h3>Payment Past Due</h3>
+            <p><strong>Status:</strong> Past Due - Action Required</p>
+            <p>Your payment method failed. Please update it immediately to continue service.</p>
+            
+            <form method="POST" action="{{ url_for('billing.create_portal') }}">
+                <button type="submit" class="btn-primary">Update Payment Method</button>
+            </form>
+        </div>
+        
+        {% elif subscription.status == 'canceled' %}
+        <div class="canceled-notice">
+            <h3>Subscription Canceled</h3>
+            <p><strong>Status:</strong> Canceled</p>
+            <p>Your subscription has been canceled. Resubscribe to continue using ClearComply.</p>
+            <p style="margin-top: 1rem;"><strong>Price:</strong> $15/month</p>
+            
+            <button id="subscribe-btn" class="btn-primary">Resubscribe - $15/month</button>
+        </div>
+        
+        {% else %}
+        <div class="trial-notice">
+            <h3>No Active Subscription</h3>
+            <p><strong>Status:</strong> Inactive</p>
+            <p>Subscribe to ClearComply to manage your compliance requirements.</p>
+            
+            <button id="subscribe-btn" class="btn-primary">Subscribe - $15/month</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="plan-features">
+        <h2>What's Included</h2>
+        <ul>
+            <li>✓ Unlimited compliance requirements</li>
+            <li>✓ Unlimited document storage</li>
+            <li>✓ Automatic expiration reminders</li>
+            <li>✓ PDF & CSV exports</li>
+            <li>✓ Email notifications</li>
+            <li>✓ Priority support</li>
+        </ul>
+        <p style="margin-top: 1rem; color: #2c3e50; font-weight: 500;">
+            <strong>30-day free trial</strong> • Then $15/month • Cancel anytime
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('subscribe-btn')?.addEventListener('click', async function() {
+            try {
+                const response = await fetch('{{ url_for("billing.create_checkout") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    alert('Failed to create checkout session');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred');
+            }
+        });
+    </script>
+</body>
+</html>

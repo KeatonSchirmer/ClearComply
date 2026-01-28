@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Upload Document - ClearComply</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('compliance.compliance') }}">Requirements</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+
+    <h1>Upload Document</h1>
+    <h2>{{ requirement.name }}</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="file">Select File *</label>
+        <input type="file" id="file" name="file" required>
+        <small>Allowed types: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, TXT (Max 16MB)</small>
+
+        <label for="description">Description (Optional)</label>
+        <textarea id="description" name="description" rows="3" placeholder="Add notes about this document..."></textarea>
+
+        <div>
+            <button type="submit" class="btn-primary">Upload</button>
+            <a href="{{ url_for('compliance.view_requirement', requirement_id=requirement.id) }}">
+                <button type="button" class="btn-secondary">Cancel</button>
+            </a>
+        </div>
+    </form>
+</body>
+</html>

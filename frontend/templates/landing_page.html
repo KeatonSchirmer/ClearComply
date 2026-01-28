@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <title>Clear Comply</title>
+</head>
+<body>
+    <h1 class="landing-header">
+        We over simplify staying compliant with business regulations!
+    </h1>
+    <ul>
+        <li>No more missed renewals</li>
+        <li>No more lost clients</li>
+        <li>No more scrambling to prove standards</li>
+    </ul>
+
+    <div>
+        <a href="{{ url_for('auth.register') }}">
+            <button class="register-button">It's time to organize your business!</button>
+        </a>
+        <br>
+        <a href="{{ url_for('auth.login') }}">
+            <button class="login-button">Login</button>
+        </a>
+    </div>
+</body>
+</html>

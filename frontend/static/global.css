@@ -1,0 +1,506 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navigation */
+nav {
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover {
+    background-color: #f0f2f5;
+}
+
+/* Typography */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    color: #34495e;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+h3 {
+    color: #34495e;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+}
+
+/* Landing Page */
+.landing-header {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin: 3rem 0 2rem 0;
+    line-height: 1.3;
+    text-align: center;
+}
+
+body ul {
+    margin: 2rem auto;
+    padding-left: 1.5rem;
+    max-width: 600px;
+}
+
+body ul li {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Center landing page buttons */
+body > div {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+body > div a {
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+/* Buttons */
+button, .btn-primary, .btn-secondary, .btn-danger {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary, button[type="submit"], .register-button, #upgrade-btn, #subscribe-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover, button[type="submit"]:hover, .register-button:hover, #upgrade-btn:hover, #subscribe-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.btn-secondary, .login-button {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover, .login-button:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+.btn-link-danger {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.btn-link-danger:hover {
+    color: #c0392b;
+}
+
+button[type="button"] {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+button[type="button"]:hover {
+    background-color: #bdc3c7;
+}
+
+/* Forms - Centered on login/register pages */
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+small {
+    display: block;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    color: #7f8c8d;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+/* Form button container */
+form > div {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+form > div button,
+form > div a button {
+    flex: 1;
+}
+
+/* Flash Messages */
+.flash {
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flash.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.flash.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+.flash.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}
+
+.flash.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #ffc107;
+}
+
+/* Dashboard Cards */
+.dashboard-summary {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.status-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.card.compliant {
+    border-left-color: #27ae60;
+    background: #eafaf1;
+}
+
+.card.expiring {
+    border-left-color: #f39c12;
+    background: #fef9e7;
+}
+
+.card.missing {
+    border-left-color: #e74c3c;
+    background: #fadbd8;
+}
+
+.card h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.card p {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.card small {
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.card ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.card ul li {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 1.5rem 0;
+}
+
+thead {
+    background-color: #34495e;
+    color: white;
+}
+
+thead th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody td a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+tbody td a:hover {
+    text-decoration: underline;
+}
+
+/* Sections */
+.requirement-info,
+.documents-section,
+.billing-info,
+.plan-features {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.requirement-info p,
+.billing-info p {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.requirement-info p strong,
+.billing-info p strong {
+    color: #2c3e50;
+}
+
+/* Actions */
+.actions,
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.actions form {
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    max-width: none;
+}
+
+/* Billing Specific */
+.trial-notice,
+.active-subscription,
+.past-due-notice,
+.canceled-notice {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.trial-notice {
+    border-left: 4px solid #3498db;
+}
+
+.active-subscription {
+    border-left: 4px solid #27ae60;
+}
+
+.past-due-notice {
+    border-left: 4px solid #f39c12;
+}
+
+.canceled-notice {
+    border-left: 4px solid #e74c3c;
+}
+
+.warning {
+    color: #f39c12;
+    font-weight: 500;
+}
+
+.plan-features ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.plan-features ul li {
+    padding: 0.5rem 0;
+    color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .landing-header {
+        font-size: 1.75rem;
+    }
+
+    .status-cards {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    thead th,
+    tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .actions,
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    button, .btn-primary, .btn-secondary, .btn-danger {
+        width: 100%;
+    }
+
+    form > div {
+        flex-direction: column;
+    }
+}
+
+/* Utility */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
