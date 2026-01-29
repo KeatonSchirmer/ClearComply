@@ -25,7 +25,7 @@ def create_checkout_session(organization, user_email, success_url, cancel_url):
                 email=user_email,
                 metadata={
                     'organization_id': organization.id,
-                    'organization_name': organization.name
+                    'organization': organization.name
                 }
             )
             customer_id = customer.id

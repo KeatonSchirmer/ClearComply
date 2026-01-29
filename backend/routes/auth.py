@@ -13,7 +13,7 @@ def register():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        organization_name = request.form.get('organization_name')
+        organization_name = request.form.get('organization')
         
         # Check if user exists
         if User.query.filter_by(email=email).first():
