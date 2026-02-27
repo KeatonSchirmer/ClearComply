@@ -14,6 +14,13 @@ from backend.utils.scheduler import start_scheduler
 from dotenv import load_dotenv
 import os
 
+''' 
+Fixes: 
+- Extend trial period to 3 months (For clients to see how it works)
+- Handle IAM permissions to increase security
+- User traffic tracking
+'''
+
 # Load environment variables
 load_dotenv()
 

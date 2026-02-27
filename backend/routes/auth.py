@@ -39,8 +39,8 @@ def register():
         # Link user to organization
         new_user.organization_id = new_org.id
         
-        # Create trial subscription (30 days)
-        trial_end = datetime.utcnow() + timedelta(days=30)
+        # Create trial subscription (90 days)
+        trial_end = datetime.utcnow() + timedelta(days=90)
         new_subscription = Subscription(
             organization_id=new_org.id,
             status='trial',
@@ -50,7 +50,7 @@ def register():
         
         db.session.commit()
         
-        flash('Registration successful! Your 30-day trial has started.', 'success')
+        flash('Registration successful! Your 90-day trial has started.', 'success')
         login_user(new_user)
         return redirect(url_for('dashboard.dashboard'))
     

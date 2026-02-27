@@ -14,11 +14,11 @@ def send_reminder_email(mail: Mail, requirement: ComplianceRequirement, user_ema
     
     # Email subject based on urgency
     if reminder_type == 'day_of':
-        subject = f"🚨 URGENT: {requirement.name} expires TODAY"
+        subject = f"URGENT: {requirement.name} expires TODAY"
     elif reminder_type == '7_day':
-        subject = f"⚠️ {requirement.name} expires in 7 days"
+        subject = f"{requirement.name} expires in 7 days"
     else:  # 30_day
-        subject = f"📅 {requirement.name} expires in 30 days"
+        subject = f"{requirement.name} expires in 30 days"
     
     # Email body
     body = f"""
