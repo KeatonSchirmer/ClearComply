@@ -39,8 +39,8 @@ class Organization(db.Model):
                 days_left = (subscription.trial_end - datetime.utcnow()).days
                 return max(0, days_left)
         
-        # Default 30 day trial from creation
-        trial_end = self.created_at + timedelta(days=30)
+        # Default 90 day trial from creation
+        trial_end = self.created_at + timedelta(days=90)
         days_left = (trial_end - datetime.utcnow()).days
         return max(0, days_left)
     
