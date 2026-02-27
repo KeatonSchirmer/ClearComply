@@ -24,7 +24,7 @@ def billing():
     
     # If no subscription record, create one with trial status
     if not subscription:
-        trial_end = current_user.organization.created_at + timedelta(days=30)
+        trial_end = current_user.organization.created_at + timedelta(days=90)
         subscription = Subscription(
             organization_id=current_user.organization_id,
             status='trial',
