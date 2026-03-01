@@ -7,9 +7,6 @@ from backend.routes.dashboard import dash_bp
 from backend.utils.billing import billing_bp
 from backend.database.database import db
 from backend.models.auth import User
-from backend.models.compliance import ComplianceRequirement, ComplianceDocument
-from backend.models.reminders import ReminderLog
-from backend.models.finance import Subscription
 from backend.utils.scheduler import start_scheduler
 from dotenv import load_dotenv
 import os
@@ -19,6 +16,7 @@ Fixes:
 - Extend trial period to 3 months (For clients to see how it works)
 - Handle IAM permissions to increase security
 - User traffic tracking
+- Product becomes unusable when subscription ends (trial or paid)
 '''
 
 # Load environment variables
@@ -62,6 +60,7 @@ app.register_blueprint(dash_bp, url_prefix='/dashboard')
 app.register_blueprint(comp_bp, url_prefix='/compliance')
 app.register_blueprint(billing_bp, url_prefix='/billing')
 
+# Starting point when visiting SaaS site
 @app.route('/')
 def landing_page():
     return render_template('landing_page.html')
